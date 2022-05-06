@@ -1,5 +1,3 @@
-//MONGO_URL='mongodb://localhost:27017/exercisetracker' for local db
-
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -7,13 +5,12 @@ require('dotenv').config()
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-mongoose.connect('mongodb+srv://TmpUser:12345A@cluster0.mm4zh.mongodb.net/exercisetracker?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true});
 
 
 const conSuccess = mongoose.connection
 conSuccess.once('open', _ => {
-  // console.log('Database connected:', process.env.MONGO_URL)
-  console.log('Database connected')
+  console.log('Database connected:', process.env.MONGO_URL)
 })
 
 app.use(cors())
